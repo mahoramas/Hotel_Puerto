@@ -1,6 +1,6 @@
 package org.docencia.hotel.service.api;
 
-import java.util.List;
+import java.util.Set;
 
 import org.docencia.hotel.domain.model.Hotel;
 /**
@@ -13,7 +13,7 @@ public interface HotelService {
      * Metodo que devulve una lista de todos los hoteles
      * @return Lista de hoteles
      */
-    List<Hotel> findall();
+    Set<Hotel> findall();
 
     /**
      * Metodo que devuelve un hotel por su identificador

@@ -1,6 +1,6 @@
 package org.docencia.hotel.service.api;
 
-import java.util.List;
+import java.util.Set;
 
 import org.docencia.hotel.domain.model.Guest;
 import org.docencia.hotel.domain.model.GuestPreferences;
@@ -14,7 +14,7 @@ public interface GuestService {
      * Metodo que devulve una lista de todos los huespedes
      * @return Lista de huespedes
      */
-    List<Guest> findall();
+    Set<Guest> findall();
 
     /**
      * Metodo que devuelve un huesped por su identificador

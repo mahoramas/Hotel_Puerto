@@ -1,6 +1,6 @@
 package org.docencia.hotel.service.api;
 
-import java.util.List;
+import java.util.Set;
 
 import org.docencia.hotel.domain.model.Room;
 /**
@@ -13,7 +13,7 @@ public interface RoomService {
      * Metodo que devulve una lista de todas las habitaciones
      * @return Lista de habitaciones
      */
-    List<Room> findall();
+    Set<Room> findall();
 
     /**
      * Metodo que devuelve una habitacion por su identificador

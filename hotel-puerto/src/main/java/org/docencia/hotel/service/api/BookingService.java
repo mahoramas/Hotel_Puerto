@@ -1,6 +1,6 @@
 package org.docencia.hotel.service.api;
 
-import java.util.List;
+import java.util.Set;
 
 import org.docencia.hotel.domain.model.Booking;
 /**
@@ -13,7 +13,7 @@ public interface BookingService {
      * Metodo que devulve una lista de todas las reservas
      * @return Lista de reservas
      */
-    List<Booking> findall();
+    Set<Booking> findall();
 
     /**
      * Metodo que devuelve una reserva por su identificador
