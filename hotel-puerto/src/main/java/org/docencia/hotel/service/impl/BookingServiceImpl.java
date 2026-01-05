@@ -11,7 +11,10 @@ import org.docencia.hotel.service.api.BookingService;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
-
+/**
+ * @author mahoramas
+ * @version 1.0.0
+ */
 @Service
 public class BookingServiceImpl implements BookingService {
 
@@ -46,7 +49,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     @Transactional
     public Boolean deleteById(long id) {
-        if (!bookingRepository.existsById(id)) {
+        if (bookingRepository.findById(id) == null) {
             return false;
         }
         bookingRepository.deleteById(id);
