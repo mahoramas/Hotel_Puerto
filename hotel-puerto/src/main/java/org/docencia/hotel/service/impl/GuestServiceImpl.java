@@ -14,6 +14,7 @@ import org.docencia.hotel.service.api.GuestService;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+
 /**
  * @author mahoramas
  * @version 1.0.0
@@ -27,15 +28,14 @@ public class GuestServiceImpl implements GuestService {
     private final GuestPreferencesMapper preferencesMapper;
     private final GuestPreferencesRepository preferencesRepository;
 
-    public GuestServiceImpl(GuestMapper guestMapper, GuestJpaRepository guestRepository, GuestPreferencesMapper preferencesMapper, GuestPreferencesRepository preferencesRepository) {
+    public GuestServiceImpl(GuestMapper guestMapper, GuestJpaRepository guestRepository,
+            GuestPreferencesMapper preferencesMapper, GuestPreferencesRepository preferencesRepository) {
         this.guestMapper = guestMapper;
         this.guestRepository = guestRepository;
         this.preferencesMapper = preferencesMapper;
         this.preferencesRepository = preferencesRepository;
     }
 
-
-    
     @Override
     public Set<Guest> findAll() {
         return guestMapper.toDomain(new HashSet<>(guestRepository.findAll()));
@@ -58,7 +58,7 @@ public class GuestServiceImpl implements GuestService {
     @Override
     @Transactional
     public Boolean deleteById(long id) {
-        if (guestRepository.findById(id) == null) {
+        if (!guestRepository.existsById(id)) {
             return false;
         }
         guestRepository.deleteById(id);
@@ -90,5 +90,5 @@ public class GuestServiceImpl implements GuestService {
         preferencesRepository.deleteById(guestId);
         return true;
     }
-    
+
 }

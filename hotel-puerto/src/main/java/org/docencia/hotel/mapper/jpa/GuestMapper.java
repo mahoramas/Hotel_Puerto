@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = {
-    GuestPreferencesMapper.class
+        GuestPreferencesMapper.class
 })
 public interface GuestMapper {
 
@@ -27,7 +27,7 @@ public interface GuestMapper {
     @Mapping(target = "bookings", ignore = true)
     Guest toDomain(GuestEntity entity, GuestPreferencesDocument guest);
 
-    Set<Guest> toDomain(Set<GuestEntity> bookings);
+    Set<Guest> toDomain(Set<GuestEntity> guests);
 
-    Set<GuestEntity> toEntity(Set<Guest> bookings);
+    Set<GuestEntity> toEntity(Set<Guest> guests);
 }

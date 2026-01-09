@@ -3,7 +3,7 @@
 
 # Ignorar directorios de compilación
 /bin/
-/target/
+target/
 
 # Ignorar archivos generados por IDEs
 /.idea/

@@ -7,8 +7,7 @@ import org.docencia.hotel.persistence.jpa.entity.BookingEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = { RoomMapper.class, GuestMapper.class })
 public interface BookingMapper {
 
     @Mapping(target = "roomId", source = "room")

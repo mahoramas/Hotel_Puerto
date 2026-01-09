@@ -10,13 +10,13 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface HotelMapper {
 
-    @Mapping(target = "rooms", ignore= true)
+    @Mapping(target = "rooms", ignore = true)
     HotelEntity toEntity(Hotel domain);
-    
-    @Mapping(target = "rooms",  ignore= true)
+
+    @Mapping(target = "rooms", ignore = true)
     Hotel toDomain(HotelEntity entity);
 
-    Set<Hotel> toDomain(Set<HotelEntity> bookings);
+    Set<Hotel> toDomain(Set<HotelEntity> hotels);
 
-    Set<HotelEntity> toEntity(Set<Hotel> bookings);
+    Set<HotelEntity> toEntity(Set<Hotel> hotels);
 }

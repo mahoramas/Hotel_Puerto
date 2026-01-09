@@ -11,6 +11,7 @@ import org.docencia.hotel.service.api.RoomService;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+
 /**
  * @author mahoramas
  * @version 1.0.0
@@ -21,7 +22,6 @@ public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
     private final RoomMapper roomMapper;
 
-
     public RoomServiceImpl(RoomRepository roomRepository, RoomMapper roomMapper) {
         this.roomRepository = roomRepository;
         this.roomMapper = roomMapper;
@@ -29,7 +29,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public Set<Room> findAll() {
-       return roomMapper.toDomain(new HashSet<>(roomRepository.findAll()));
+        return roomMapper.toDomain(new HashSet<>(roomRepository.findAll()));
     }
 
     @Override
@@ -49,7 +49,7 @@ public class RoomServiceImpl implements RoomService {
     @Override
     @Transactional
     public Boolean deleteById(long id) {
-        if (roomRepository.findById(id) == null) {
+        if (!roomRepository.existsById(id)) {
             return false;
         }
         roomRepository.deleteById(id);

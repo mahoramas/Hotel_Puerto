@@ -18,7 +18,7 @@ public interface RoomMapper {
     @Mapping(target = "bookings", ignore = true)
     Room toDomain(RoomEntity entity);
 
-    Set<Room> toDomain(Set<RoomEntity> bookings);
+    Set<Room> toDomain(Set<RoomEntity> rooms);
 
-    Set<RoomEntity> toEntity(Set<Room> bookings);
+    Set<RoomEntity> toEntity(Set<Room> rooms);
 }
