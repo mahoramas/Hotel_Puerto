@@ -3,7 +3,10 @@ package org.docencia.hotel.config;
 import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxws.EndpointImpl;
+import org.docencia.hotel.web.soap.impl.BookingSoapServiceImpl;
 import org.docencia.hotel.web.soap.impl.GuestSoapServiceImpl;
+import org.docencia.hotel.web.soap.impl.HotelSoapServiceImpl;
+import org.docencia.hotel.web.soap.impl.RoomSoapServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
