@@ -11,12 +11,12 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface BookingMapper {
 
-    @Mapping(target = "room", source = "room")
-    @Mapping(target = "guest", source = "guest")
+    @Mapping(target = "roomId", source = "room")
+    @Mapping(target = "guestId", source = "guest")
     BookingEntity toEntity(Booking domain);
 
-    @Mapping(target = "room", source = "room")
-    @Mapping(target = "guest", source = "guest")
+    @Mapping(target = "room", source = "roomId")
+    @Mapping(target = "guest", source = "guestId")
     Booking toDomain(BookingEntity entity);
 
     Set<Booking> toDomain(Set<BookingEntity> bookings);

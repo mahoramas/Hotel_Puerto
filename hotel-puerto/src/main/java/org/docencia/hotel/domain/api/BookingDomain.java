@@ -13,7 +13,7 @@ public interface BookingDomain {
      * Metodo que devulve una lista de todas las reservas
      * @return Lista de reservas
      */
-    Set<Booking> findall();
+    Set<Booking> findAll();
 
     /**
      * Metodo que devuelve una reserva por su identificador

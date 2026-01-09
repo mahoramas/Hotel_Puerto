@@ -13,7 +13,7 @@ public interface HotelDomain {
      * Metodo que devulve una lista de todos los hoteles
      * @return Lista de hoteles
      */
-    Set<Hotel> findall();
+    Set<Hotel> findAll();
 
     /**
      * Metodo que devuelve un hotel por su identificador

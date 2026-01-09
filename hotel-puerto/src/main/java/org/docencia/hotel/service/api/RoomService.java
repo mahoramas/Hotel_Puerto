@@ -13,7 +13,7 @@ public interface RoomService {
      * Metodo que devulve una lista de todas las habitaciones
      * @return Lista de habitaciones
      */
-    Set<Room> findall();
+    Set<Room> findAll();
 
     /**
      * Metodo que devuelve una habitacion por su identificador

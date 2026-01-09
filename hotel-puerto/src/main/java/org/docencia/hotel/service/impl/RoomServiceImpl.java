@@ -28,7 +28,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Set<Room> findall() {
+    public Set<Room> findAll() {
        return roomMapper.toDomain(new HashSet<>(roomRepository.findAll()));
     }
 

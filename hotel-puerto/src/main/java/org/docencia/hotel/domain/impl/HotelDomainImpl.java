@@ -17,8 +17,8 @@ public class HotelDomainImpl implements HotelDomain {
     }
 
     @Override
-    public Set<Hotel> findall() {
-        return service.findall();
+    public Set<Hotel> findAll() {
+        return service.findAll();
     }
 
     @Override

@@ -37,7 +37,7 @@ public class GuestServiceImpl implements GuestService {
 
     
     @Override
-    public Set<Guest> findall() {
+    public Set<Guest> findAll() {
         return guestMapper.toDomain(new HashSet<>(guestRepository.findAll()));
     }
 

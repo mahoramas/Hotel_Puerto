@@ -17,8 +17,8 @@ public class RoomDomainImpl implements RoomDomain {
     }
 
     @Override
-    public Set<Room> findall() {
-        return service.findall();
+    public Set<Room> findAll() {
+        return service.findAll();
     }
 
     @Override

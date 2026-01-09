@@ -28,7 +28,7 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public Set<Hotel> findall() {
+    public Set<Hotel> findAll() {
        return hotelMapper.toDomain(new HashSet<>(hotelRepository.findAll()));
     }
 

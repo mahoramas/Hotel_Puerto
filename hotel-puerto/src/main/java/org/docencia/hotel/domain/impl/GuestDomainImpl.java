@@ -18,8 +18,8 @@ public class GuestDomainImpl implements GuestDomain {
     }
 
     @Override
-    public Set<Guest> findall() {
-        return service.findall();
+    public Set<Guest> findAll() {
+        return service.findAll();
     }
 
     @Override

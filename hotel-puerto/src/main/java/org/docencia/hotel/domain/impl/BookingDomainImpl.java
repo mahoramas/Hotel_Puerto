@@ -17,8 +17,8 @@ public class BookingDomainImpl implements BookingDomain {
     }
 
     @Override
-    public Set<Booking> findall() {
-        return service.findall();
+    public Set<Booking> findAll() {
+        return service.findAll();
     }
 
     @Override

@@ -14,7 +14,7 @@ public interface GuestService {
      * Metodo que devulve una lista de todos los huespedes
      * @return Lista de huespedes
      */
-    Set<Guest> findall();
+    Set<Guest> findAll();
 
     /**
      * Metodo que devuelve un huesped por su identificador

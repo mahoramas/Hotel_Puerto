@@ -28,7 +28,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Set<Booking> findall() {
+    public Set<Booking> findAll() {
        return bookingMapper.toDomain(new HashSet<>(bookingRepository.findAll()));
     }
 
