@@ -3,8 +3,6 @@ package org.docencia.hotel.persistence.jpa.entity;
 import java.util.Objects;
 import java.util.Set;
 
-import org.docencia.hotel.domain.model.Hotel;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,19 +36,19 @@ public class RoomEntity {
 
     @ManyToOne
     @JoinColumn(name = "hotel_id")
-    private Hotel hotel;
+    private HotelEntity hotel;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "roomId")
     Set<BookingEntity> bookings;
 
     /**
-     * Constructor vacio de la clase 
+     * Constructor vacio de la clase
      */
     public RoomEntity() {
     }
 
     /**
-     * Constructor con el identificador de la clase 
+     * Constructor con el identificador de la clase
      *
      * @param id id de la habitacion
      */
@@ -68,7 +66,8 @@ public class RoomEntity {
      * @param hotel hotel donde se encuentra la habitacion
      * @param bookings reservas que tiene la habitacion
      */
-    public RoomEntity(Long id, String number, String type, float pricePerNight, Hotel hotel, Set<BookingEntity> bookings) {
+    public RoomEntity(Long id, String number, String type, float pricePerNight, HotelEntity hotel,
+            Set<BookingEntity> bookings) {
         this.id = id;
         this.number = number;
         this.type = type;
@@ -109,11 +108,11 @@ public class RoomEntity {
         this.pricePerNight = pricePerNight;
     }
 
-    public Hotel getHotel() {
+    public HotelEntity getHotel() {
         return this.hotel;
     }
 
-    public void setHotel(Hotel hotel) {
+    public void setHotel(HotelEntity hotel) {
         this.hotel = hotel;
     }
 

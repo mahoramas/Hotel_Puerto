@@ -132,4 +132,16 @@ public class BookingEntity {
         return Objects.equals(this.id, other.id);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("BookingEntity{");
+        sb.append("id=").append(id);
+        sb.append(", room=").append(roomId);
+        sb.append(", guest=").append(guestId);
+        sb.append(", checkIn=").append(checkIn);
+        sb.append(", checkOut=").append(checkOut);
+        sb.append('}');
+        return sb.toString();
+    }
 }

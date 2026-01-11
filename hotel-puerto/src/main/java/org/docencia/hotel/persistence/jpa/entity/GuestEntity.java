@@ -31,11 +31,11 @@ public class GuestEntity {
 
     @Column(name = "email")
     private String email;
-    
+
     @Column(name = "phone")
     private String phone;
 
-    @OneToMany(mappedBy = "guest")
+    @OneToMany(mappedBy = "guestId")
     Set<BookingEntity> bookings;
 
     @Transient
@@ -66,7 +66,8 @@ public class GuestEntity {
      * @param bookings reservas del huesped
      * @param preference preferencias del huesped
      */
-    public GuestEntity(Set<BookingEntity> bookings, String email, String fullName, Long id, String phone, GuestPreferencesDocument preference) {
+    public GuestEntity(Set<BookingEntity> bookings, String email, String fullName, Long id, String phone,
+            GuestPreferencesDocument preference) {
         this.bookings = bookings;
         this.email = email;
         this.fullName = fullName;

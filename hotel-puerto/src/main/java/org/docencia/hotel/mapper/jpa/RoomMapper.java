@@ -7,7 +7,7 @@ import org.docencia.hotel.persistence.jpa.entity.RoomEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = { HotelMapper.class })
 public interface RoomMapper {
 
     @Mapping(target = "hotel", source = "hotel")

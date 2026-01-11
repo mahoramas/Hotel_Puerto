@@ -1,5 +1,7 @@
 package org.docencia.hotel.persistence.jpa.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -29,7 +31,7 @@ public class HotelEntity {
     private String address;
 
     @OneToMany(mappedBy = "hotel")
-    private RoomEntity rooms;
+    private List<RoomEntity> rooms = new ArrayList<>();
 
     /**
      * Constructor vacio
@@ -47,14 +49,14 @@ public class HotelEntity {
     }
 
     /**
-     * Constructor con los atributos de la clase 
+     * Constructor con los atributos de la clase
      *
      * @param id id del hotel
      * @param name nombre del hotel
      * @param address direccion del hotel
      * @param rooms habitaciones del hotel
      */
-    public HotelEntity(Long id, String name, String address, RoomEntity rooms) {
+    public HotelEntity(Long id, String name, String address, List<RoomEntity> rooms) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -85,11 +87,11 @@ public class HotelEntity {
         this.address = address;
     }
 
-    public RoomEntity getRooms() {
+    public List<RoomEntity> getRooms() {
         return this.rooms;
     }
 
-    public void setRooms(RoomEntity rooms) {
+    public void setRooms(List<RoomEntity> rooms) {
         this.rooms = rooms;
     }
 
@@ -108,7 +110,7 @@ public class HotelEntity {
         return this;
     }
 
-    public HotelEntity rooms(RoomEntity rooms) {
+    public HotelEntity rooms(List<RoomEntity> rooms) {
         setRooms(rooms);
         return this;
     }
