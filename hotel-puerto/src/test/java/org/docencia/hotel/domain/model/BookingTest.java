@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.time.LocalDate;
-
 import org.junit.jupiter.api.Test;
 
 class BookingTest {
@@ -20,7 +18,7 @@ class BookingTest {
         booking.setRoom(room);
         Guest guest = new Guest();
         booking.setGuest(guest);
-        LocalDate date = LocalDate.now();
+        String date = "2025-01-01";
         booking.setCheckIn(date);
         booking.setCheckOut(date);
 

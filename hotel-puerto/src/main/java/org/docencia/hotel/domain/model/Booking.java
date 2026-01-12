@@ -1,7 +1,5 @@
 package org.docencia.hotel.domain.model;
 
-import java.time.LocalDate;
-
 /**
  * @author mahoramas
  * @version 1.0.0
@@ -13,9 +11,9 @@ public class Booking {
 
     private Guest guest;
 
-    private LocalDate checkIn;
+    private String checkIn;
 
-    private LocalDate checkOut;
+    private String checkOut;
 
     /**
      * Constructor vacio
@@ -25,6 +23,7 @@ public class Booking {
 
     /**
      * Constructor con identificador
+     * 
      * @param id id de la reserva
      */
     public Booking(Long id) {
@@ -33,13 +32,14 @@ public class Booking {
 
     /**
      * Constructor con todos los parametros de la clase
-     * @param id identificador de la reserva
-     * @param room identificador de la habitacion de la reserva
-     * @param guest identificador de huesped de la reserva
-     * @param checkIn fecha y hora de entrada de la reserva
+     * 
+     * @param id       identificador de la reserva
+     * @param room     identificador de la habitacion de la reserva
+     * @param guest    identificador de huesped de la reserva
+     * @param checkIn  fecha y hora de entrada de la reserva
      * @param checkOut fecha y hora de salida de la reserva
      */
-    public Booking(Long id, Room room, Guest guest, LocalDate checkIn, LocalDate checkOut) {
+    public Booking(Long id, Room room, Guest guest, String checkIn, String checkOut) {
         this.id = id;
         this.room = room;
         this.guest = guest;
@@ -71,19 +71,19 @@ public class Booking {
         this.guest = guest;
     }
 
-    public LocalDate getCheckIn() {
+    public String getCheckIn() {
         return checkIn;
     }
 
-    public void setCheckIn(LocalDate checkIn) {
+    public void setCheckIn(String checkIn) {
         this.checkIn = checkIn;
     }
 
-    public LocalDate getCheckOut() {
+    public String getCheckOut() {
         return checkOut;
     }
 
-    public void setCheckOut(LocalDate checkOut) {
+    public void setCheckOut(String checkOut) {
         this.checkOut = checkOut;
     }
 
@@ -111,7 +111,5 @@ public class Booking {
             return false;
         return true;
     }
-
-    
 
 }

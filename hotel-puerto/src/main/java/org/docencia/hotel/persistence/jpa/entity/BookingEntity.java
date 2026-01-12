@@ -1,6 +1,5 @@
 package org.docencia.hotel.persistence.jpa.entity;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -33,10 +32,10 @@ public class BookingEntity {
     private GuestEntity guestId;
 
     @Column(name = "check_in")
-    private LocalDate checkIn;
+    private String checkIn;
 
     @Column(name = "check_out")
-    private LocalDate checkOut;
+    private String checkOut;
 
     /**
      * Constructor vacio
@@ -62,7 +61,7 @@ public class BookingEntity {
      * @param checkIn fecha y hora de entrada de la reserva
      * @param checkOut fecha y hora de salida de la reserva
      */
-    public BookingEntity(LocalDate checkIn, LocalDate checkOut, GuestEntity guestId, Long id, RoomEntity roomId) {
+    public BookingEntity(String checkIn, String checkOut, GuestEntity guestId, Long id, RoomEntity roomId) {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.guestId = guestId;
@@ -94,19 +93,19 @@ public class BookingEntity {
         this.guestId = guestId;
     }
 
-    public LocalDate getCheckIn() {
+    public String getCheckIn() {
         return checkIn;
     }
 
-    public void setCheckIn(LocalDate checkIn) {
+    public void setCheckIn(String checkIn) {
         this.checkIn = checkIn;
     }
 
-    public LocalDate getCheckOut() {
+    public String getCheckOut() {
         return checkOut;
     }
 
-    public void setCheckOut(LocalDate checkOut) {
+    public void setCheckOut(String checkOut) {
         this.checkOut = checkOut;
     }
 

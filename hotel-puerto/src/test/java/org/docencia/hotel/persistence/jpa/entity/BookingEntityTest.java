@@ -2,8 +2,6 @@ package org.docencia.hotel.persistence.jpa.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.LocalDate;
-
 import org.junit.jupiter.api.Test;
 
 class BookingEntityTest {
@@ -16,7 +14,7 @@ class BookingEntityTest {
         entity.setRoomId(room);
         GuestEntity guest = new GuestEntity();
         entity.setGuestId(guest);
-        LocalDate date = LocalDate.now();
+        String date = "2025-01-01";
         entity.setCheckIn(date);
         entity.setCheckOut(date);
 
