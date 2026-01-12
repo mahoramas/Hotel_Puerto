@@ -1,19 +1,17 @@
 package org.docencia.hotel.web.rest;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Set;
 
-import org.docencia.hotel.domain.api.HotelDomain;
-import org.docencia.hotel.domain.model.Hotel;
+import org.docencia.hotel.domain.api.RoomDomain;
+import org.docencia.hotel.domain.model.Room;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,94 +21,92 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest(HotelController.class)
-class HotelControllerTest {
+@WebMvcTest(RoomController.class)
+class RoomControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private HotelDomain hotelDomain;
+    private RoomDomain roomDomain;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Test
-    void findByIdTestReturnHotel() throws Exception {
+    void findByIdTestReturnRoom() throws Exception {
         long id = 1L;
-        Hotel hotel = new Hotel();
-        hotel.setId(id);
-        hotel.setName("Test Hotel");
+        Room room = new Room();
+        room.setId(id);
+        room.setNumber("101");
 
-        when(hotelDomain.findById(id)).thenReturn(hotel);
+        when(roomDomain.findById(id)).thenReturn(room);
 
-        mockMvc.perform(get("/api/hotels/{id}", id))
+        mockMvc.perform(get("/api/rooms/{id}", id))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id))
-                .andExpect(jsonPath("$.name").value("Test Hotel"));
+                .andExpect(jsonPath("$.number").value("101"));
     }
 
     @Test
     void findByIdTestReturnNotFound() throws Exception {
         long id = 1L;
-        when(hotelDomain.findById(id)).thenReturn(null);
+        when(roomDomain.findById(id)).thenReturn(null);
 
-        mockMvc.perform(get("/api/hotels/{id}", id))
+        mockMvc.perform(get("/api/rooms/{id}", id))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    void saveTestReturnSavedHotel() throws Exception {
-        Hotel hotelToSave = new Hotel();
-        hotelToSave.setName("New Hotel");
+    void saveTestReturnSavedRoom() throws Exception {
+        Room roomToSave = new Room();
+        roomToSave.setNumber("102");
 
-        Hotel savedHotel = new Hotel();
-        savedHotel.setId(1L);
-        savedHotel.setName("New Hotel");
+        Room savedRoom = new Room();
+        savedRoom.setId(1L);
+        savedRoom.setNumber("102");
 
-        when(hotelDomain.save(any(Hotel.class))).thenReturn(savedHotel);
+        when(roomDomain.save(any(Room.class))).thenReturn(savedRoom);
 
-        mockMvc.perform(post("/api/hotels/add")
+        mockMvc.perform(post("/api/rooms/add")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(hotelToSave)))
+                .content(objectMapper.writeValueAsString(roomToSave)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.name").value("New Hotel"));
+                .andExpect(jsonPath("$.number").value("102"));
     }
 
     @Test
     void saveTestReturnBadRequest() throws Exception {
-        Hotel hotelToSave = new Hotel();
-        hotelToSave.setName("New Hotel");
+        Room roomToSave = new Room();
+        when(roomDomain.save(any(Room.class))).thenReturn(null);
 
-        when(hotelDomain.save(any(Hotel.class))).thenReturn(null);
-
-        mockMvc.perform(post("/api/hotels/add")
+        mockMvc.perform(post("/api/rooms/add")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(hotelToSave)))
+                .content(objectMapper.writeValueAsString(roomToSave)))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
     void findAllTestReturnList() throws Exception {
-        Hotel hotel = new Hotel();
-        hotel.setId(1L);
-        hotel.setName("Test Hotel");
+        Room room = new Room();
+        room.setId(1L);
+        room.setNumber("101");
 
-        when(hotelDomain.findAll()).thenReturn(Set.of(hotel));
+        when(roomDomain.findAll()).thenReturn(Set.of(room));
 
-        mockMvc.perform(get("/api/hotels/"))
+        mockMvc.perform(get("/api/rooms/"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(1L))
-                .andExpect(jsonPath("$[0].name").value("Test Hotel"));
+                .andExpect(jsonPath("$[0].number").value("101"));
     }
 
     @Test
     void deleteByIdTestReturnStatus() throws Exception {
         long id = 1L;
-        when(hotelDomain.deleteById(id)).thenReturn(true);
+        when(roomDomain.deleteById(id)).thenReturn(true);
 
-        mockMvc.perform(delete("/api/hotels/{id}", id))
+        mockMvc.perform(delete("/api/rooms/{id}", id))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.borrada").value(true));
     }

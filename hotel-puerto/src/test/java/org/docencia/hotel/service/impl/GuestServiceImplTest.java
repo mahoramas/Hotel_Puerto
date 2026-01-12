@@ -49,8 +49,8 @@ class GuestServiceImplTest {
     private GuestServiceImpl guestService;
 
     @Test
-    void findAll_ShouldReturnSetOfGuests() {
-        // Arrange
+    void findAllTestReturnGuests() {
+        
         GuestEntity entity = new GuestEntity();
         entity.setId(1L);
 
@@ -60,18 +60,16 @@ class GuestServiceImplTest {
         when(guestRepository.findAll()).thenReturn(List.of(entity));
         when(guestMapper.toDomain(anySet())).thenReturn(Set.of(guest));
 
-        // Act
         Set<Guest> result = guestService.findAll();
 
-        // Assert
         assertNotNull(result);
         assertEquals(1, result.size());
         verify(guestRepository).findAll();
     }
 
     @Test
-    void findById_WhenExists_ShouldReturnGuest() {
-        // Arrange
+    void findByIdTestReturnGuest() {
+        
         long id = 1L;
         GuestEntity entity = new GuestEntity();
         entity.setId(id);
@@ -82,33 +80,30 @@ class GuestServiceImplTest {
         when(guestRepository.findById(id)).thenReturn(Optional.of(entity));
         when(guestMapper.toDomain(entity)).thenReturn(guest);
 
-        // Act
+        
         Guest result = guestService.findById(id);
 
-        // Assert
         assertNotNull(result);
         assertEquals(id, result.getId());
     }
 
     @Test
-    void findById_WhenNotExists_ShouldReturnNull() {
-        // Arrange
+    void findByIdTestReturnNull() {
+        
         long id = 1L;
         when(guestRepository.findById(id)).thenReturn(Optional.empty());
         when(guestMapper.toDomain((GuestEntity) null)).thenReturn(null);
 
-        // Act
+        
         Guest result = guestService.findById(id);
 
-        // Assert
         assertNull(result);
     }
 
     @Test
-    void save_ShouldGenerateIdAndSave() {
-        // Arrange
+    void saveTest() {
+        
         Guest guestToSave = new Guest();
-        // guestToSave.setId(null); // Explicitly null
 
         GuestEntity entityToSave = new GuestEntity();
 
@@ -122,47 +117,44 @@ class GuestServiceImplTest {
         when(guestRepository.save(entityToSave)).thenReturn(savedEntity);
         when(guestMapper.toDomain(savedEntity)).thenReturn(savedGuest);
 
-        // Act
+        
         Guest result = guestService.save(guestToSave);
 
-        // Assert
         assertNotNull(result);
         assertEquals(123L, result.getId());
         verify(guestRepository).save(entityToSave);
     }
 
     @Test
-    void deleteById_WhenExists_ShouldDeleteAndReturnTrue() {
-        // Arrange
+    void deleteByIdTestReturnTrue() {
+        
         long id = 1L;
         when(guestRepository.existsById(id)).thenReturn(true);
         doNothing().when(guestRepository).deleteById(id);
 
-        // Act
+        
         Boolean result = guestService.deleteById(id);
 
-        // Assert
         assertTrue(result);
         verify(guestRepository).deleteById(id);
     }
 
     @Test
-    void deleteById_WhenNotExists_ShouldReturnFalse() {
-        // Arrange
+    void deleteByIdTestReturnFalse() {
+        
         long id = 1L;
         when(guestRepository.existsById(id)).thenReturn(false);
 
-        // Act
+        
         Boolean result = guestService.deleteById(id);
 
-        // Assert
         assertFalse(result);
         verify(guestRepository, times(0)).deleteById(id);
     }
 
     @Test
-    void findPreferences_WhenExists_ShouldReturnPreferences() {
-        // Arrange
+    void findPreferencesTestReturnPreferences() {
+        
         Long guestId = 1L;
         GuestPreferencesDocument doc = new GuestPreferencesDocument();
         doc.setId(guestId);
@@ -173,17 +165,16 @@ class GuestServiceImplTest {
         when(preferencesRepository.findById(guestId)).thenReturn(Optional.of(doc));
         when(preferencesMapper.toDomain(doc)).thenReturn(prefs);
 
-        // Act
+        
         GuestPreferences result = guestService.findPreferences(guestId);
 
-        // Assert
         assertNotNull(result);
         assertEquals(guestId, result.getGuestId());
     }
 
     @Test
-    void savePreference_ShouldSaveAndReturn() {
-        // Arrange
+    void savePreferenceTest() {
+        
         Long guestId = 1L;
         GuestPreferences prefs = new GuestPreferences();
         prefs.setGuestId(guestId);
@@ -195,26 +186,24 @@ class GuestServiceImplTest {
         when(preferencesRepository.save(doc)).thenReturn(doc);
         when(preferencesMapper.toDomain(doc)).thenReturn(prefs);
 
-        // Act
+        
         GuestPreferences result = guestService.savePreference(guestId, prefs);
 
-        // Assert
         assertNotNull(result);
         assertEquals(guestId, result.getGuestId());
         verify(preferencesRepository).save(doc);
     }
 
     @Test
-    void deletePreferences_WhenExists_ShouldDelete() {
-        // Arrange
+    void deletePreferencesTest() {
+        
         Long guestId = 1L;
         when(preferencesRepository.findById(guestId)).thenReturn(Optional.of(new GuestPreferencesDocument()));
         doNothing().when(preferencesRepository).deleteById(guestId);
 
-        // Act
+        
         Boolean result = guestService.deletePreferences(guestId);
 
-        // Assert
         assertTrue(result);
         verify(preferencesRepository).deleteById(guestId);
     }

@@ -1,17 +1,5 @@
 package org.docencia.hotel.service.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anySet;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -20,10 +8,20 @@ import org.docencia.hotel.domain.model.Room;
 import org.docencia.hotel.mapper.jpa.RoomMapper;
 import org.docencia.hotel.persistence.jpa.entity.RoomEntity;
 import org.docencia.hotel.persistence.repository.jpa.RoomRepository;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.anySet;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,8 +37,7 @@ class RoomServiceImplTest {
     private RoomServiceImpl roomService;
 
     @Test
-    void findAll_ShouldReturnSetOfRooms() {
-        // Arrange
+    void findAllTestReturnSet() {
         RoomEntity entity = new RoomEntity();
         entity.setId(1L);
 
@@ -50,18 +47,15 @@ class RoomServiceImplTest {
         when(roomRepository.findAll()).thenReturn(List.of(entity));
         when(roomMapper.toDomain(anySet())).thenReturn(Set.of(room));
 
-        // Act
         Set<Room> result = roomService.findAll();
 
-        // Assert
         assertNotNull(result);
         assertEquals(1, result.size());
         verify(roomRepository).findAll();
     }
 
     @Test
-    void findById_WhenExists_ShouldReturnRoom() {
-        // Arrange
+    void findByIdTestReturnRoom() {
         long id = 1L;
         RoomEntity entity = new RoomEntity();
         entity.setId(id);
@@ -72,97 +66,102 @@ class RoomServiceImplTest {
         when(roomRepository.findById(id)).thenReturn(Optional.of(entity));
         when(roomMapper.toDomain(entity)).thenReturn(room);
 
-        // Act
         Room result = roomService.findById(id);
 
-        // Assert
         assertNotNull(result);
         assertEquals(id, result.getId());
     }
 
     @Test
-    void findById_WhenNotExists_ShouldReturnNull() {
-        // Arrange
+    void findByIdTestReturnNull() {
         long id = 1L;
         when(roomRepository.findById(id)).thenReturn(Optional.empty());
         when(roomMapper.toDomain((RoomEntity) null)).thenReturn(null);
 
-        // Act
         Room result = roomService.findById(id);
 
-        // Assert
         assertNull(result);
     }
 
     @Test
-    void save_ShouldGenerateIdAndSave() {
-        // Arrange
-        Room roomToSave = new Room();
-        RoomEntity entityToSave = new RoomEntity();
+    void saveTest() {
+        Room room = new Room();
+        RoomEntity entity = new RoomEntity();
         RoomEntity savedEntity = new RoomEntity();
-        savedEntity.setId(123L);
+        savedEntity.setId(1L);
         Room savedRoom = new Room();
-        savedRoom.setId(123L);
+        savedRoom.setId(1L);
 
-        when(roomMapper.toEntity(roomToSave)).thenReturn(entityToSave);
-        when(roomRepository.save(entityToSave)).thenReturn(savedEntity);
+        when(roomMapper.toEntity(room)).thenReturn(entity);
+        when(roomRepository.save(entity)).thenReturn(savedEntity);
         when(roomMapper.toDomain(savedEntity)).thenReturn(savedRoom);
 
-        // Act
-        Room result = roomService.save(roomToSave);
+        Room result = roomService.save(room);
 
-        // Assert
         assertNotNull(result);
-        assertEquals(123L, result.getId());
-        verify(roomRepository).save(entityToSave);
+        assertEquals(1L, result.getId());
     }
 
     @Test
-    void deleteById_WhenExists_ShouldDeleteAndReturnTrue() {
-        // Arrange
+    void saveTestReturnRoom() {
+        Room room = new Room();
+        room.setId(1L);
+        RoomEntity entity = new RoomEntity();
+        entity.setId(1L);
+        RoomEntity savedEntity = new RoomEntity();
+        savedEntity.setId(1L);
+        Room savedRoom = new Room();
+        savedRoom.setId(1L);
+
+        when(roomMapper.toEntity(room)).thenReturn(entity);
+        when(roomRepository.save(entity)).thenReturn(savedEntity);
+        when(roomMapper.toDomain(savedEntity)).thenReturn(savedRoom);
+
+        Room result = roomService.save(room);
+
+        assertNotNull(result);
+        assertEquals(1L, result.getId());
+    }
+
+    @Test
+    void deleteByIdTest() {
         long id = 1L;
         when(roomRepository.existsById(id)).thenReturn(true);
         doNothing().when(roomRepository).deleteById(id);
 
-        // Act
         Boolean result = roomService.deleteById(id);
 
-        // Assert
         assertTrue(result);
         verify(roomRepository).deleteById(id);
     }
 
     @Test
-    void deleteById_WhenNotExists_ShouldReturnFalse() {
-        // Arrange
+    void deleteByIdTestReturnFalse() {
         long id = 1L;
         when(roomRepository.existsById(id)).thenReturn(false);
 
-        // Act
         Boolean result = roomService.deleteById(id);
 
-        // Assert
         assertFalse(result);
         verify(roomRepository, times(0)).deleteById(id);
     }
 
     @Test
-    void findByHotelId_ShouldReturnRoom() {
-        // Arrange
-        Long hotelId = 1L;
+    void findByHotelIdTestReturnRoom() {
+        Long hotelId = 100L;
         RoomEntity entity = new RoomEntity();
         entity.setId(1L);
+
         Room room = new Room();
         room.setId(1L);
 
         when(roomRepository.findByHotelId(hotelId)).thenReturn(List.of(entity));
         when(roomMapper.toDomain(entity)).thenReturn(room);
 
-        // Act
         Room result = roomService.findByHotelId(hotelId);
 
-        // Assert
         assertNotNull(result);
         assertEquals(1L, result.getId());
+        verify(roomRepository).findByHotelId(hotelId);
     }
 }

@@ -1,16 +1,5 @@
 package org.docencia.hotel.service.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anySet;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -19,10 +8,20 @@ import org.docencia.hotel.domain.model.Hotel;
 import org.docencia.hotel.mapper.jpa.HotelMapper;
 import org.docencia.hotel.persistence.jpa.entity.HotelEntity;
 import org.docencia.hotel.persistence.repository.jpa.HotelRepository;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anySet;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,8 +37,7 @@ class HotelServiceImplTest {
     private HotelServiceImpl hotelService;
 
     @Test
-    void findAll_ShouldReturnSetOfHotels() {
-        // Arrange
+    void findAllTestReturnHotels() {
         HotelEntity entity = new HotelEntity();
         entity.setId(1L);
         entity.setName("Hotel Test");
@@ -51,10 +49,8 @@ class HotelServiceImplTest {
         when(hotelRepository.findAll()).thenReturn(List.of(entity));
         when(hotelMapper.toDomain(anySet())).thenReturn(Set.of(hotel));
 
-        // Act
         Set<Hotel> result = hotelService.findAll();
 
-        // Assert
         assertNotNull(result);
         assertEquals(1, result.size());
         verify(hotelRepository).findAll();
@@ -62,8 +58,7 @@ class HotelServiceImplTest {
     }
 
     @Test
-    void findById_WhenExists_ShouldReturnHotel() {
-        // Arrange
+    void findByIdTestReturnHotel() {
         long id = 1L;
         HotelEntity entity = new HotelEntity();
         entity.setId(id);
@@ -74,32 +69,26 @@ class HotelServiceImplTest {
         when(hotelRepository.findById(id)).thenReturn(Optional.of(entity));
         when(hotelMapper.toDomain(entity)).thenReturn(hotel);
 
-        // Act
         Hotel result = hotelService.findById(id);
 
-        // Assert
         assertNotNull(result);
         assertEquals(id, result.getId());
         verify(hotelRepository).findById(id);
     }
 
     @Test
-    void findById_WhenNotExists_ShouldReturnNull() {
-        // Arrange
+    void findByIdTestReturnNull() {
         long id = 1L;
         when(hotelRepository.findById(id)).thenReturn(Optional.empty());
         when(hotelMapper.toDomain((HotelEntity) null)).thenReturn(null);
 
-        // Act
         Hotel result = hotelService.findById(id);
 
-        // Assert
         assertNull(result);
     }
 
     @Test
-    void save_ShouldGenerateIdAndSave() {
-        // Arrange
+    void saveTest() {
         Hotel hotelToSave = new Hotel();
         hotelToSave.setName("New Hotel");
 
@@ -118,10 +107,8 @@ class HotelServiceImplTest {
         when(hotelRepository.save(entityToSave)).thenReturn(savedEntity);
         when(hotelMapper.toDomain(savedEntity)).thenReturn(savedHotel);
 
-        // Act
         Hotel result = hotelService.save(hotelToSave);
 
-        // Assert
         assertNotNull(result);
         assertNotNull(result.getId());
         assertEquals("New Hotel", result.getName());
@@ -129,29 +116,23 @@ class HotelServiceImplTest {
     }
 
     @Test
-    void deleteById_WhenExists_ShouldDeleteAndReturnTrue() {
-        // Arrange
+    void deleteByIdTestReturnTrue() {
         long id = 1L;
         when(hotelRepository.existsById(id)).thenReturn(true);
 
-        // Act
         Boolean result = hotelService.deleteById(id);
 
-        // Assert
         assertTrue(result);
         verify(hotelRepository).deleteById(id);
     }
 
     @Test
-    void deleteById_WhenNotExists_ShouldReturnFalse() {
-        // Arrange
+    void deleteByIdTestFalse() {
         long id = 1L;
         when(hotelRepository.existsById(id)).thenReturn(false);
 
-        // Act
         Boolean result = hotelService.deleteById(id);
 
-        // Assert
         assertFalse(result);
         verify(hotelRepository, times(0)).deleteById(id);
     }

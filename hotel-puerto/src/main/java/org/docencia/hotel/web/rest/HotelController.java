@@ -31,7 +31,7 @@ import jakarta.validation.Valid;
 public class HotelController {
     private final HotelDomain hotelDomain;
 
-    public HotelController( HotelDomain hotelDomain) {
+    public HotelController(HotelDomain hotelDomain) {
         this.hotelDomain = hotelDomain;
     }
 
@@ -51,16 +51,16 @@ public class HotelController {
 
     @Operation(summary = "Guardar hotel")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "hotel creado correctamente"),
-        @ApiResponse(responseCode = "400", description = "No se pudo guardar el hotel")
+            @ApiResponse(responseCode = "200", description = "hotel creado correctamente"),
+            @ApiResponse(responseCode = "400", description = "No se pudo guardar el hotel")
     })
     @PostMapping("/add")
     public ResponseEntity<Hotel> save(@Valid @RequestBody Hotel hotel) {
         Hotel hotelSaved = hotelDomain.save(hotel);
         if (hotelSaved == null) {
-            return  ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().build();
         }
-        return  ResponseEntity.ok().body(hotel);
+        return ResponseEntity.ok().body(hotelSaved);
     }
 
     @Operation(summary = "Obtener todos los hoteles")
@@ -73,11 +73,11 @@ public class HotelController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "hotel borrado correctamente"),
             @ApiResponse(responseCode = "404", description = "hotel no encontrado")
-    })    
+    })
     @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteById(@PathVariable(value = "id") Long id) {
         boolean respuesta = hotelDomain.deleteById(id);
-        Map<String,Boolean> response = new HashMap<>();
+        Map<String, Boolean> response = new HashMap<>();
         response.put("borrada", respuesta);
         return response;
 

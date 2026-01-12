@@ -31,7 +31,7 @@ import jakarta.validation.Valid;
 public class RoomController {
     private final RoomDomain roomDomain;
 
-    public RoomController( RoomDomain roomDomain) {
+    public RoomController(RoomDomain roomDomain) {
         this.roomDomain = roomDomain;
     }
 
@@ -51,16 +51,16 @@ public class RoomController {
 
     @Operation(summary = "Guardar habitacion")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "habitacion creada correctamente"),
-        @ApiResponse(responseCode = "400", description = "No se pudo guardar la habitacion")
+            @ApiResponse(responseCode = "200", description = "habitacion creada correctamente"),
+            @ApiResponse(responseCode = "400", description = "No se pudo guardar la habitacion")
     })
     @PostMapping("/add")
     public ResponseEntity<Room> save(@Valid @RequestBody Room room) {
         Room roomSaved = roomDomain.save(room);
         if (roomSaved == null) {
-            return  ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().build();
         }
-        return  ResponseEntity.ok().body(room);
+        return ResponseEntity.ok().body(roomSaved);
     }
 
     @Operation(summary = "Obtener todos las habitaciones")
@@ -73,11 +73,11 @@ public class RoomController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "habitacion borrada correctamente"),
             @ApiResponse(responseCode = "404", description = "habitacion no encontrada")
-    })    
+    })
     @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteById(@PathVariable(value = "id") Long id) {
         boolean respuesta = roomDomain.deleteById(id);
-        Map<String,Boolean> response = new HashMap<>();
+        Map<String, Boolean> response = new HashMap<>();
         response.put("borrada", respuesta);
         return response;
 

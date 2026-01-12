@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+
 /**
  * @author mahoramas
  * @version 1.0.0
@@ -51,16 +52,16 @@ public class BookingController {
 
     @Operation(summary = "Guardar reserva")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "reserva creada correctamente"),
-        @ApiResponse(responseCode = "400", description = "No se pudo guardar la reserva")
+            @ApiResponse(responseCode = "200", description = "reserva creada correctamente"),
+            @ApiResponse(responseCode = "400", description = "No se pudo guardar la reserva")
     })
     @PostMapping("/add")
     public ResponseEntity<Booking> save(@Valid @RequestBody Booking booking) {
         Booking bookingSaved = bookingDomain.save(booking);
         if (bookingSaved == null) {
-            return  ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().build();
         }
-        return  ResponseEntity.ok().body(booking);
+        return ResponseEntity.ok().body(bookingSaved);
     }
 
     @Operation(summary = "Obtener todos las reservas")
@@ -73,11 +74,11 @@ public class BookingController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "reserva borrada correctamente"),
             @ApiResponse(responseCode = "404", description = "reserva no encontrada")
-    })    
+    })
     @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteById(@PathVariable(value = "id") Long id) {
         boolean respuesta = bookingDomain.deleteById(id);
-        Map<String,Boolean> response = new HashMap<>();
+        Map<String, Boolean> response = new HashMap<>();
         response.put("borrada", respuesta);
         return response;
 
